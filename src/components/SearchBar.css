@@ -1,0 +1,23 @@
+.form {
+    display: flex;
+    justify-content: center;
+}
+
+.searchText {
+    width: 300px;
+    margin: 10px 0;
+}
+
+.submitButton{
+    background-color: #282c34;
+    color: white;
+    margin: 10px 0;
+    border: none;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    width: 100px;
+    border-radius: 0 0.35em 0.35em 0;
+}
