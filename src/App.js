@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import PhotoContextProvider from "./context/PhotoContext";
 import { HashRouter, Route, Switch, Redirect } from "react-router-dom";
 import Header from "./components/Header";
 import Item from "./components/Item";
@@ -11,13 +10,13 @@ class App extends Component {
   handleSubmit = (e, history, searchInput) => {
     e.preventDefault();
     e.currentTarget.reset();
+
     let url = `/search/${searchInput}`;
     history.push(url);
   };
 
   render() {
     return (
-      <PhotoContextProvider>
         <HashRouter basename="/SnapScout">
           <div className="container">
             <Route
@@ -52,7 +51,6 @@ class App extends Component {
             </Switch>
           </div>
         </HashRouter>
-      </PhotoContextProvider>
     );
   }
 }

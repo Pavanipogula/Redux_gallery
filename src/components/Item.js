@@ -1,17 +1,13 @@
 import React, { useContext, useEffect} from "react";
-import { PhotoContext } from "../context/PhotoContext";
 import './Item.css';
 import Loading from "./Loading";
 import Menus from "./Menus";
 import SearchBar from "./SearchBar";
-function Item(props) {
-    const { images, loading, runSearch } = useContext(PhotoContext)
-    console.log(loading)
-    useEffect (
-        ()=>{
-            runSearch(props.searchTerm)
-        }, [props]
-    )
+import { connect } from 'react-redux'
+import { fetchImages } from "../action/imagesAction";
+
+function Item( {fetchImagesHandler, loading, images,searchTerm}) {
+    useEffect(() => {fetchImagesHandler(searchTerm)}, [searchTerm])
     function afterLoading(image) {
         let farm = image.farm;     
         let server = image.server;
@@ -23,10 +19,22 @@ function Item(props) {
     <>
         <SearchBar/>
         <Menus/>
-        <h2>{props.searchTerm} Pictures</h2>
+        <h2>{searchTerm} Pictures</h2>
         {loading?<Loading></Loading>: <ul class = "images">{images.map((images)=>afterLoading(images))}</ul>}
     </>
     )
 }
 
-export default Item;
+const mapDispatchToProps = (dispatch)=>{
+    return  {fetchImagesHandler:(searchTerm)=>dispatch(fetchImages(searchTerm))};
+ }
+
+const mapStateToProps = state => ( 
+ {
+    
+    loading:state.loading,
+    images: state.images,
+  }
+  )
+  
+  export default connect(mapStateToProps,mapDispatchToProps)(Item)
